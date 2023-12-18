@@ -1,29 +1,33 @@
-# Tp2
+# Travail pratique #2 : Vue.js - Site de Critiques de Films
 
-This template should help get you started developing with Vue 3 in Vite.
+Notre site de critiques de films offre aux utilisateurs la possibilité de:
 
-## Recommended IDE Setup
+- Découvrir les films les plus récents sur la page d'accueil.
+- Effectuer des recherches personnalisées selon différents critères.
+- Explorer en détail les informations des films grâce à une interface simple et intuitive.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Objectifs du Projet
 
-## Customize configuration
+Le but principal de ce projet est de développer une application frontend en Vue.js utilisant l'API fournie par le professeur pour créer un site de critiques de films. Les fonctionnalités clés incluent :
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### Affichage des Films les Plus Récents
 
-## Project Setup
+Sur la page d'accueil, les utilisateurs verront une liste des films les plus récents.
 
-```sh
-npm install
-```
+### Affichage des Détails d'un Film
 
-### Compile and Hot-Reload for Development
+L'application permettra aux utilisateurs de visualiser les détails complets d'un film spécifique.
 
-```sh
-npm run dev
-```
+### Recherche de Films par Mots-Clés
 
-### Compile and Minify for Production
+Les utilisateurs pourront effectuer des recherches de films en utilisant des mots-clés.
 
-```sh
-npm run build
-```
+### Recherche de Films par Date de Sortie
+
+Fonctionnalité permettant de rechercher des films en fonction de leur date de sortie.
+
+### Recherche de Films par Genre
+
+Les utilisateurs auront la possibilité de rechercher des films en fonction de leur genre, avec la liste des genres présentée sous forme de liste déroulante.
+
+
