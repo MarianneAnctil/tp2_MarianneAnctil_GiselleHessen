@@ -9,15 +9,24 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
+    // {
+    //   path: '/movies',
+    //   name: 'movies',
+    //   component: () => import('../views/ProductsView.vue')
+    // }
     {
-      path: '/products',
-      name: 'products',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/ProductsView.vue')
-    }
-  ]
-})
+      path: '/movie/:id',
+      name: 'movie',
+      component: () => import('../views/MovieDetailsView.vue'),
+      props: castRouteParams
+    },
+  ],
+});
 
-export default router
+function castRouteParams(route) {
+  return {
+    id: Number(route.params.id),
+  };
+}
+
+export default router;
