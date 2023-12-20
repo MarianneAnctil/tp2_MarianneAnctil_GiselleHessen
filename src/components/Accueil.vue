@@ -65,9 +65,14 @@ methods: {
     
       getMovieKeyword(this.searchMovie).then(response => this.keyWordMovies = response.results);
       console.log(this.searchMovie)
+      console.log(this.movies)
     },
       genres() {
-  getMovieGenre(this.selectedGenre).then(response => this.genreMovies = response.results);
+  getMovieGenre(this.selectedGenre).then(response => this.keyWordMovies = response.results);
+      console.log(this.selectedGenre)
+    },
+     afficherFiche() {
+  getMovieGenre(this.selectedGenre).then(response => this.keyWordMovies = response.results);
       console.log(this.selectedGenre)
     },
 },
@@ -90,7 +95,9 @@ methods: {
 <ul>
     <li 
     v-for="movie in this.movies" :key='movie.id'>
-    <span>{{movie.original_title}}</span>
+    <img src='{{movie.poster_path}}'>
+    <span @click='afficherFiche(movie.id)'>{{movie.original_title}}</span>
+    <p>{{movie.release_date}}</p>
     </li>
 </ul>
 
