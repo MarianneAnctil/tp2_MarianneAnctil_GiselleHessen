@@ -17,8 +17,34 @@ export async function getAllMovies() {
 }
 
 export async function getMovie(id) {
-    const response = await fetch(baseURLSearch+ '/' + id + 'api_key=daae932b052d96ade399f33a4e6a9e58', headers);
+    const response = await fetch(baseURLSearch+ '/' + id + '?api_key=daae932b052d96ade399f33a4e6a9e58', headers);
     let movie = await response.json();
     return movie;
 }
+
+export async function getMovieKeyword(keyWord) {
+    const response = await fetch(baseURLSearch+ '?api_key=daae932b052d96ade399f33a4e6a9e58&query='+keyWord, headers);
+    let movie = await response.json();
+    console.log(baseURLSearch+ '?api_key=daae932b052d96ade399f33a4e6a9e58&query='+keyWord)
+    return movie;
+}
+export async function getMovieDate(date) {
+    const response = await fetch(baseURLSearch+ '?api_key=daae932b052d96ade399f33a4e6a9e58&year='+date, headers);
+    let movie = await response.json();
+    console.log(baseURLSearch+ '?api_key=daae932b052d96ade399f33a4e6a9e58&query='+keyWord)
+    return movie;
+}
+
+export async function getMovieGenre(genre) {
+    const response = await fetch(baseURLSearch+ '/' + id + 'api_key=daae932b052d96ade399f33a4e6a9e58&genre'+genre, headers);
+    let movie = await response.json();
+    return movie;
+}
+
+export async function getAllGenres() {
+    const response = await fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=daae932b052d96ade399f33a4e6a9e58', headers);
+    let genres = await response.json();
+    return genres;
+}
+
 
