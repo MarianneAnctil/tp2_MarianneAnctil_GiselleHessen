@@ -1,11 +1,10 @@
 <template>
-  <h1>Id: {{ id }}</h1>
-<!--  <h2>{{ movie.title }}</h2>-->
-<!--  <h3>{{ movie.description }}</h3>-->
-<!--  <p>Note: {{ movie.price }}</p>-->
-<!--  <p>Durée: {{ product.fixedPrice }}</p>-->
-<!--  <p>Année de parution: {{ product.discontinued }}</p>-->
-<!--  <p>Lien vers le sitre officiel du film: {{ product.modifiedDate }}</p>-->
+  <h1>{{ movie.title }}</h1>
+  <h2>{{ movie.overview }}</h2>
+  <p>Note: {{ movie.vote_average }}</p>
+  <p>Durée: {{ movie.runtime }}</p>
+  <p>Année de parution: {{ movie.release_date }}</p>
+  <p>Lien vers le sitre officiel du film: {{ movie.homepage }}</p>
 </template>
 
 <script>
@@ -23,7 +22,9 @@ export default {
     },
   },
   mounted() {
-    getMovie(this.id).then(response => this.movie = response);
+    getMovie(this.id)
+        .then(response => this.movie = response)
+        .catch(error => console.error('Erreur lors de la récupération des données du film', error));
   },
 };
 </script>
