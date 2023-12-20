@@ -2,7 +2,12 @@
 
 <script>
 import { getMovieKeyword } from '@/services/MovieService.js';
-import KeyWordMovies from '../components/KeyWordMovies.vue'
+import { getMovieGenre } from '@/services/MovieService.js';
+
+import KeyWordMovies from '../components/KeyWordMovies.vue';
+
+
+
 export default{
      components: {
    KeyWordMovies,
@@ -11,12 +16,20 @@ export default{
 data(){
    return{
        keyWordMovies:[],
+       genreMovies:[],
+
        searchMovie:'',
+       selectedGenre:null,
+
    };
 },
 
 props: {
     movies: {
+        type: Array,
+    //default: () => [],
+    },
+    genres: {
         type: Array,
     //default: () => [],
     },
@@ -53,12 +66,13 @@ methods: {
       getMovieKeyword(this.searchMovie).then(response => this.keyWordMovies = response.results);
       console.log(this.searchMovie)
     },
+      genres() {
+  getMovieGenre(this.selectedGenre).then(response => this.genreMovies = response.results);
+      console.log(this.selectedGenre)
+    },
 },
 
 };
-
-
-
 
 </script>
 
@@ -69,10 +83,8 @@ methods: {
 
      <span>Recherche par nom: <input v-model="searchMovie"/></span>
      <button @click='keyWord()'>Rechercher</button>
-     <select>
-        <option value='year'>Année
-        </option>
-        <option value='keyWord'>Titre, Mot clé...</option>
+     <select v-model="selectedGenre" @change="genres()">
+        <option  v-for="genre in this.genres" :key='genre.id' :value='genre.name'>{{genre.name}}</option>
     </select>
 </nav>
 <ul>
