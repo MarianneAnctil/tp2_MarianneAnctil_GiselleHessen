@@ -1,10 +1,10 @@
 <template>
-  <h1>{{ movie.title }}</h1>
-  <h2>{{ movie.overview }}</h2>
-  <p>Note: {{ movie.vote_average }}</p>
-  <p>Durée: {{ movie.runtime }}</p>
+  <h2>{{ movie.title }}</h2>
+  <h3>{{ movie.overview }}</h3>
+  <p>Note: {{ movie.vote_average }}/10</p>
+  <p>Durée: {{ movie.runtime }} minutes</p>
   <p>Année de parution: {{ movie.release_date }}</p>
-  <p>Lien vers le sitre officiel du film: {{ movie.homepage }}</p>
+  <p><a href="{{ movie.homepage }}">Lien vers le sitre officiel du film</a></p>
 </template>
 
 <script>
