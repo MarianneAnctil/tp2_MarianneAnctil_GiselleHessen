@@ -9,7 +9,6 @@ let headers = {
     "Content-Type": "application/json"
 };
 
-// const RESOURCE_NAME = "products";
 
 export async function getAllMovies() {
     const response = await fetch(baseURLDiscover+ '?api_key=daae932b052d96ade399f33a4e6a9e58&year=2023', headers);
