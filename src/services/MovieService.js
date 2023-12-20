@@ -2,8 +2,6 @@
 let baseURLDiscover = 'https://api.themoviedb.org/3/discover/movie';
 let baseURLSearch = 'https://api.themoviedb.org/3/search/movie';
 
-
-
 let headers = {
     Accept: "application/json",
     "Content-Type": "application/json"
