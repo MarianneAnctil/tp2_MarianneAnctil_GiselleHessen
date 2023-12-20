@@ -9,14 +9,13 @@ let headers = {
     "Content-Type": "application/json"
 };
 
-
 export async function getAllMovies() {
     const response = await fetch(baseURLDiscover+ '?api_key=daae932b052d96ade399f33a4e6a9e58&year=2023', headers);
     return await response.json();
 }
 
 export async function getMovie(id) {
-    const response = await fetch(baseURLSearch+ '/' + id + '?api_key=daae932b052d96ade399f33a4e6a9e58', headers);
+    const response = await fetch('https://api.themoviedb.org/3/movie/'+ id +'?api_key=daae932b052d96ade399f33a4e6a9e58', headers);
     let movie = await response.json();
     return movie;
 }
