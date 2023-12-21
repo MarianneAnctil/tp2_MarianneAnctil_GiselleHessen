@@ -1,9 +1,9 @@
 <script>
-import { getMovieKeyword } from "@/services/MovieService.js";
-import { getMovieGenre } from "@/services/MovieService.js";
-import { getMovieDate } from "@/services/MovieService.js";
-import { RouterLink, RouterView } from "vue-router";
-import { isProxy, toRaw } from "vue";
+import {getMovieKeyword} from "@/services/MovieService.js";
+import {getMovieGenre} from "@/services/MovieService.js";
+import {getMovieDate} from "@/services/MovieService.js";
+import {RouterLink, RouterView} from "vue-router";
+import {isProxy, toRaw} from "vue";
 import KeyWordMovies from "../components/KeyWordMovies.vue";
 
 export default {
@@ -22,6 +22,8 @@ export default {
       upNoPage: true,
       selectedGenre: null,
       noResults: false,
+      totalResults: 0,
+      resultsPerPage: 10,
     };
   },
 
@@ -52,25 +54,26 @@ export default {
     },
 
     keyWord() {
+      const pageOffset = (this.noPage - 1) * this.resultsPerPage;
       if (this.searchMovie) {
         getMovieKeyword(this.searchMovie, this.noPage).then((response) => {
-          this.keyWordMovies = response.results;
+          this.keyWordMovies = response.results.slice(
+              pageOffset,
+              pageOffset + this.resultsPerPage
+          );
           this.titleSearch = "Résultats de recherche pour " + this.searchMovie;
-          if (this.keyWordMovies.length === 0) {
-            this.noResults = true;
-          } else {
-            this.noResults = false;
-          }
+          this.totalResults = response.total_results;
+          this.updateNoResults();
         });
       } else if (this.searchDate) {
         getMovieDate(this.searchDate, this.noPage).then((response) => {
-          this.keyWordMovies = response.results;
+          this.keyWordMovies = response.results.slice(
+              pageOffset,
+              pageOffset + this.resultsPerPage
+          );
           this.titleSearch = "Résultats de recherche pour " + this.searchDate;
-          if (this.keyWordMovies.length === 0) {
-            this.noResults = true;
-          } else {
-            this.noResults = false;
-          }
+          this.totalResults = response.total_results;
+          this.updateNoResults();
         });
       }
     },
@@ -85,6 +88,14 @@ export default {
         }
       });
     },
+    updateNoResults() {
+      if (this.keyWordMovies.length === 0 && this.totalResults === 0) {
+        this.noResults = true;
+      } else {
+        this.noResults = false;
+      }
+    },
+
     afficherFiche(id) {
       router.push("/movie/:" + id);
     },
@@ -96,15 +107,15 @@ export default {
 <template>
   <main>
     <nav>
-      <span>Recherche par nom: <input v-model="searchMovie" /></span>
-      <span>Recherche par date de sortie: <input v-model="searchDate" /></span>
+      <span>Recherche par nom: <input v-model="searchMovie"/></span>
+      <span>Recherche par date de sortie: <input v-model="searchDate" placeholder="Ex:2023"/></span>
       <button @click="keyWord()">Rechercher</button>
-      <label for="genres">Filtrer par genre</label>
+      <label for="genres">Rechercher par genre</label>
       <select id="genres" v-model="selectedGenre" @change="genres()">
         <option
-          v-for="genre in this.genres"
-          :key="genre.id"
-          :value="genre.name"
+            v-for="genre in this.genres"
+            :key="genre.id"
+            :value="genre.name"
         >
           {{ genre.name }}
         </option>
@@ -115,29 +126,32 @@ export default {
         <button @click="prevPage()">Page précédente</button>
         <button @click="nextPage()">Page suivante</button>
       </div>
-
-      <KeyWordMovies :movies="keyWordMovies" :title="titleSearch" />
+      <div v-if="!noResults && totalResults > 0">
+        <p>Nombre total de résultats : {{ totalResults }}</p>
+        <p>Page {{ noPage }} sur {{ Math.ceil(totalResults / resultsPerPage) }}</p>
+      </div>
+      <KeyWordMovies :movies="keyWordMovies" :title="titleSearch"/>
       <p v-if="noResults">Aucun résultat trouvé pour cette recherche.</p>
     </section>
     <h2>Nouveautés</h2>
     <ul>
       <li
-        v-for="(movie, index) in this.movies.slice(0, 3)"
-        :key="movie.id"
-        v-if="!noResults"
+          v-for="(movie, index) in this.movies.slice(0, 3)"
+          :key="movie.id"
+          v-if="!noResults"
       >
         <img
-          :src="
+            :src="
             movie.poster_path
               ? movie.poster_path
               : 'https://placeimg.com/200/200/tech'
           "
-          width="200"
+            width="200"
         />
         <router-link :to="{ name: 'movie-details', params: { id: movie.id } }">
           <span @click="afficherFiche(movie.id)">{{
-            movie.original_title
-          }}</span>
+              movie.original_title
+            }}</span>
         </router-link>
         <p>{{ movie.release_date }}</p>
       </li>

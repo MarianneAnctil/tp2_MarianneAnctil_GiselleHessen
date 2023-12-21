@@ -7,18 +7,20 @@ const router = createRouter({
     {
       path: '/',
       name: 'accueil',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        title: 'TP2 - Accueil',
+      },
     },
-    // {
-    //   path: '/movies',
-    //   name: 'movies',
-    //   component: () => import('../views/ProductsView.vue')
-    // }
     {
       path: '/movie/:id',
       name: 'movie-details',
       component: () => import('../views/MovieDetailsView.vue'),
+      meta: {
+        title: 'TP2 - Détails du film',
+      },
       props: castRouteParams
+
     },
   ],
 });
