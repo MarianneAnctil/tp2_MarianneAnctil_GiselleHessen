@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { getMovie } from '@/services/MovieService.js';
+import { getMovie } from "@/services/MovieService.js";
 
 export default {
   data() {
@@ -23,8 +23,13 @@ export default {
   },
   mounted() {
     getMovie(this.id)
-        .then(response => this.movie = response)
-        .catch(error => console.error('Erreur lors de la récupération des données du film', error));
+      .then((response) => (this.movie = response))
+      .catch((error) =>
+        console.error(
+          "Erreur lors de la récupération des données du film",
+          error
+        )
+      );
   },
 };
 </script>
