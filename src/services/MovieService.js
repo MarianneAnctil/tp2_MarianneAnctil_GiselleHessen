@@ -24,7 +24,7 @@ export async function getMovieKeyword(keyWord) {
     return movie;
 }
 export async function getMovieDate(date) {
-    const response = await fetch(baseURLSearch+ '?api_key=daae932b052d96ade399f33a4e6a9e58&year='+date, headers);
+    const response = await fetch(baseURLDiscover+ '?api_key=daae932b052d96ade399f33a4e6a9e58&year='+date, headers);
     let movie = await response.json();
     return movie;
 }
@@ -32,6 +32,7 @@ export async function getMovieDate(date) {
 export async function getMovieGenre(genre) {
     const response = await fetch (baseURLDiscover+ '?api_key=daae932b052d96ade399f33a4e6a9e58&with_genre='+genre, headers);
     let movie = await response.json();
+    console.log(response)
     return movie;
 }
 

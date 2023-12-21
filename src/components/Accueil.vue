@@ -3,6 +3,8 @@
 <script>
 import { getMovieKeyword } from '@/services/MovieService.js';
 import { getMovieGenre } from '@/services/MovieService.js';
+import { getMovieDate } from '@/services/MovieService.js';
+
 import { RouterLink, RouterView } from 'vue-router'
 import { isProxy, toRaw } from 'vue';
 import KeyWordMovies from '../components/KeyWordMovies.vue';
